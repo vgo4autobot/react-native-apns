@@ -7,5 +7,9 @@
 
 @interface RNApns : NSObject <RCTBridgeModule>
 
+#if !TARGET_OS_TV
++ (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
++ (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
+#endif
+
 @end
-  

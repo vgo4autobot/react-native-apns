@@ -1,8 +1,7 @@
-
 {
   "name": "react-native-apns",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple lib to get the apns token",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,9 +9,9 @@
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "",
+  "author": "Riast Ullah",
+  "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react-native": ">=0.55.0"
   }
 }

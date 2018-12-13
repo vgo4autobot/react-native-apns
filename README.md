@@ -25,6 +25,18 @@
 import RNApns from 'react-native-apns';
 
 // TODO: What to do with the module?
-RNApns;
+
+RNApns.getToken().then((token) => 
+{
+    console.log(`token${token}`);
+    console.log('apns_token_success');
+},
+(error) => 
+{
+console.log('apns_token_failed');
+console.log(error);
+});
+
+
 ```
   
