@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   RNApns
                    DESC
-  s.homepage     = "https://github.com/eacbkk/react-native-apns"
+  s.homepage     = "https://github.com/vgo4autobot/react-native-apns"
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }
