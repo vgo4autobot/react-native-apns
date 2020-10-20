@@ -16,14 +16,29 @@ RCT_EXPORT_METHOD(works)
 
 + (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSString *deviceTokenStr = [[[[deviceToken description]
-                                  stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                 stringByReplacingOccurrencesOfString: @">" withString: @""]
-                                stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:deviceTokenStr forKey:@"apnsToken"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-     NSLog(@"Device Token: %@", deviceTokenStr);
+   if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 13) {
+        if (![deviceToken isKindOfClass:[NSData class]]) {
+            //记录获取token失败的描述
+            return;
+        }
+        const unsigned *tokenBytes = (const unsigned *)[deviceToken bytes];
+        NSString *strToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+                              ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+                              ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+                              ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+        [[NSUserDefaults standardUserDefaults] setObject:strToken forKey:@"apnsToken"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+        NSLog(@"deviceToken1:%@", strToken);
+    }else {
+        NSString *deviceTokenStr = [[[[deviceToken description]
+                                         stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                        stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                       stringByReplacingOccurrencesOfString: @" " withString: @""];
+           
+           [[NSUserDefaults standardUserDefaults] setObject:deviceTokenStr forKey:@"apnsToken"];
+           [[NSUserDefaults standardUserDefaults] synchronize];
+            NSLog(@"Device Token: %@", deviceTokenStr);
+    }
 }
 
 + (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
